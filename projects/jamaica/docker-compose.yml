@@ -130,11 +130,13 @@ services:
     container_name: hydra
     ports: ["4444:4444", "4445:4445", "5555:5555"]
     command: "serve all --dangerous-force-http"
-    environment: ["DATABASE_URL=memory"]
+    environment: ["DATABASE_URL=memory", "OAUTH2_CONSENT_URL=http://$IDP_HOST:3000/consent", "OAUTH2_LOGIN_URL=http://$IDP_HOST:3000/login"]
+    networks: [default]
   logico:
     container_name: logico
     image: "ninjalikeme/logico"
     command: /app/main
+    networks: [default]
     environment:
       - DB_USER=$PG_USER
       - DB_PW=$PG_PW
