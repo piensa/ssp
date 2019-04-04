@@ -130,20 +130,25 @@ services:
     container_name: hydra
     ports: ["4444:4444", "4445:4445", "5555:5555"]
     command: "serve all --dangerous-force-http"
-    environment: ["DATABASE_URL=memory", "OAUTH2_CONSENT_URL=http://$IDP_HOST:3000/consent", "OAUTH2_LOGIN_URL=http://$IDP_HOST:3000/login"]
-    networks: [default]
+    environment: ["DATABASE_URL=memory", "OAUTH2_CONSENT_URL=http://logico:3000/consent", "OAUTH2_LOGIN_URL=http://logico:3000/login"]
+    networks:
+      default:
+        aliases:
+          - hydra
   logico:
     container_name: logico
     image: "ninjalikeme/logico"
     command: /app/main
-    networks: [default]
+    networks:
+      default:
+        aliases:
+          - logico
     environment:
       - DB_USER=$PG_USER
       - DB_PW=$PG_PW
       - DB_NAME=$USER_DB
       - DB_HOST=postgresd
       - DB_PORT=5432
-      - HYDRA_BROWSER_URL=http://localhost:4444/oauth2/auth
       - HYDRA_PUBLIC_URL=http://hydra:4444/oauth2/token
       - HYDRA_ADMIN_URL=http://hydra:4445
       - HYDRA_CLIENT_ID=piensa
