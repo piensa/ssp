@@ -17,15 +17,15 @@ Please ensure that's all working fine before continuing.
 To run a complete build, execute the following commands:
 
 ```bash
-pelias compose pull
-pelias elastic start
-pelias elastic wait
-pelias elastic create
-pelias download all
-pelias prepare all
-pelias import all
-pelias compose up
-pelias test run
+ssp compose pull
+ssp elastic start
+ssp elastic wait
+ssp elastic create
+ssp download all
+ssp prepare all
+ssp import all
+ssp compose up
+ssp test run
 ```
 
 # Make an Example Query
