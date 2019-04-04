@@ -163,3 +163,70 @@ services:
     environment: [POSTGRES_USER=$PG_USER, POSTGRES_PASSWORD=$PG_PW, POSTGRES_DB=$PG_DB, USER_DB=$USER_DB]
     volumes:
       - "./postgres/:/dump"
+  keto:
+    container_name: keto
+    image: oryd/keto:v0.2.2-sandbox_oryOS.10
+    depends_on:
+      - hydra
+      - keto-migrate
+    links:
+      - hydra:hydra
+      - postgresd:postgresd
+    environment:
+      - DATABASE_URL=$DATABASE_URL
+      - AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=http://hydra:4444/oauth2/token
+      - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
+    networks:
+      - intranet
+    ports:
+      - 4466:4466
+    restart: on-failure
+    volumes:
+      - "./config/:/config/"
+  ok-api:
+    container_name: ok-api
+    image: oryd/oathkeeper:v0.14.2_oryOS.10
+    links:
+      - hydra:hydra
+      - keto:keto
+      - postgresd:postgresd
+    ports:
+      - 4456:4456
+    networks:
+      - intranet
+    restart: on-failure
+    environment:
+      - LOG_LEVEL=debug
+      - ISSUER_URL=http://ok-proxy:4455/
+      - DATABASE_URL=$DATABASE_URL
+      - PORT=4456
+      - CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo
+      - AUTHORIZER_KETO_URL=http://keto:4466
+      - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
+    command: serve api
+    volumes:
+      - "./config/:/config/"
+  ok-proxy:
+    container_name: ok-proxy
+    image: oryd/oathkeeper:v0.14.2_oryOS.10
+    links:
+      - hydra:hydra
+      - keto:keto
+      - ok-api:ok-api
+    ports:
+      - 4455:4455
+    restart: on-failure
+    depends_on:
+      - ok-api
+    networks:
+      - intranet
+    environment:
+      - LOG_LEVEL=debug
+      - OATHKEEPER_API_URL=http://ok-api:4456
+      - PORT=4455
+      - CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme
+      - AUTHORIZER_KETO_URL=http://keto:4466
+      - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
+    command: serve proxy
+
+

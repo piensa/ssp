@@ -1,0 +1,14 @@
+[{
+    "id": "marvel",
+    "subjects": ["<.*>@marvel.com"],
+    "resources": ["marvel.txt"],
+    "actions": ["view"],
+    "effect": "allow"
+},
+{
+    "id": "dc",
+    "subjects": ["<.*>@dc.com"],
+    "resources": ["dc.txt"],
+    "actions": ["view"],
+    "effect": "allow"
+}]
