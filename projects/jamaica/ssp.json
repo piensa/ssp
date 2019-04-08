@@ -1,13 +1,84 @@
 {
+  "keto": [{
+      "id": "marvel",
+      "subjects": ["<.*>@marvel.com"],
+      "resources": ["*"],
+      "actions": ["view"],
+      "effect": "allow"
+    },
+    {
+      "id": "dc",
+      "subjects": ["<.*>@dc.com"],
+      "resources": ["*"],
+      "actions": ["view"],
+      "effect": "deny"
+    }
+  ],
+
+  "oathkeeper": [{
+      "id": "superheroes",
+      "upstream": {
+        "url": "http://minio:9000"
+      },
+      "match": {
+        "url": "http://oathkeeper-proxy:4455/overall",
+        "methods": ["GET"]
+      },
+      "authenticators": [{
+        "handler": "oauth2_introspection",
+        "config": {
+          "required_scope": ["eat", "sleep"]
+        }
+      }],
+      "authorizer": {
+        "handler": "keto_engine_acp_ory",
+        "config": {
+          "required_action": "view",
+          "flavor": "regex"
+        }
+      },
+      "credentials_issuer": {
+        "handler": "noop"
+      }
+    },
+    {
+      "id": "superheroes-api",
+      "upstream": {
+        "url": ""
+      },
+      "match": {
+        "url": "http://oathkeeper-api:4456/overall",
+        "methods": ["GET"]
+      },
+      "authenticators": [{
+        "handler": "oauth2_introspection",
+        "config": {
+          "required_scope": ["eat", "sleep"]
+        }
+      }],
+      "authorizer": {
+        "handler": "keto_engine_acp_ory",
+        "config": {
+          "required_action": "view",
+          "required_resource": "*",
+          "flavor": "regex"
+        }
+      },
+      "credentials_issuer": {
+        "handler": "noop"
+      }
+    }
+  ],
+
   "logger": {
     "level": "info",
     "timestamp": false
   },
   "esclient": {
     "apiVersion": "5.6",
-    "hosts": [
-      { "host": "elasticsearch" }
-    ]
+    "hosts": [{
+      "host": "elasticsearch"
+    }]
   },
   "elasticsearch": {
     "settings": {
@@ -26,10 +97,18 @@
   "api": {
     "textAnalyzer": "libpostal",
     "services": {
-      "placeholder": { "url": "http://placeholder:4100" },
-      "pip": { "url": "http://pip:4200" },
-      "interpolation": { "url": "http://interpolation:4300" },
-      "libpostal": { "url": "http://libpostal:4400" }
+      "placeholder": {
+        "url": "http://placeholder:4100"
+      },
+      "pip": {
+        "url": "http://pip:4200"
+      },
+      "interpolation": {
+        "url": "http://interpolation:4300"
+      },
+      "libpostal": {
+        "url": "http://libpostal:4400"
+      }
     }
   },
   "imports": {
@@ -41,9 +120,9 @@
       "countryCode": "JM"
     },
     "openstreetmap": {
-      "download": [
-        { "sourceURL": "http://download.geofabrik.de/central-america/jamaica-latest.osm.pbf" }
-      ],
+      "download": [{
+        "sourceURL": "http://download.geofabrik.de/central-america/jamaica-latest.osm.pbf"
+      }],
       "leveldbpath": "/tmp",
       "datapath": "/data/openstreetmap",
       "import": [{
@@ -58,7 +137,7 @@
     },
     "polyline": {
       "datapath": "/data/polylines",
-      "files": [ "extract.0sv" ]
+      "files": ["extract.0sv"]
     },
     "whosonfirst": {
       "datapath": "/data/whosonfirst",

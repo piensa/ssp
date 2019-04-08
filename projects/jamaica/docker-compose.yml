@@ -181,7 +181,7 @@ services:
       - 4466:4466
     restart: on-failure
     volumes:
-      - "./config/:/config/"
+      - "./:/config/"
   ok-api:
     container_name: ok-api
     image: oryd/oathkeeper:v0.14.2_oryOS.10
@@ -204,7 +204,7 @@ services:
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
     command: serve api
     volumes:
-      - "./config/:/config/"
+      - "./:/config/"
   ok-proxy:
     container_name: ok-proxy
     image: oryd/oathkeeper:v0.14.2_oryOS.10
@@ -227,5 +227,10 @@ services:
       - AUTHORIZER_KETO_URL=http://keto:4466
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
     command: serve proxy
+  json_parser:
+    image: stedolan/jq
+    container_name: json_parser
+    volumes:
+      - "./:/config/"
 
 

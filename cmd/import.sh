@@ -11,11 +11,16 @@ function import_transit(){ compose_run 'transit' './bin/start'; }
 function import_csv(){ compose_run 'csv-importer' './bin/start'; }
 
 function import_keto(){
+  # Parse keto config from main json.
+  compose_run json_parser -M '.keto' /config/ssp.json > keto-policies.json
+
 	compose_exec exec keto keto engines acp ory policies import \
-	regex --endpoint http://localhost:4466 /config/keto-policies.json
+	regex --endpoint http://localhost:4466 /config/keto-policies.json;
 }
 
 function import_oathkeeper(){
+  compose_run json_parser -M '.oathkeeper' /config/ssp.json > ok-rules.json
+
 	compose_exec exec ok-api oathkeeper rules import \
 	--endpoint http://localhost:4456 /config/ok-rules.json
 }
