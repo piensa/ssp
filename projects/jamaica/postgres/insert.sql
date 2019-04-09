@@ -5,12 +5,12 @@ CREATE TABLE users (ID SERIAL PRIMARY KEY NOT NULL,
 	);
 
 INSERT INTO users(name, password, email) VALUES 
-	('Peter Parker', 'spiderman', 'spiderman@marvel.com'),
-	('Matt Murdoch', 'daredevil', 'daredevil@marvel.com'),
-	('Bruce Banner', 'hulk', 'hulk@marvel.com'),
-	('Stephen Strange', 'drstrange', 'drstrange@marvel.com'),
-	('Reed Richards', 'mrfantastic', 'mrfantastic@marvel.com'),
-	('Bruce Wayne', 'batman', 'batman@dc.com'), 
-	('Clark Kent', 'superman', 'superman@dc.com'),
-	('Barry Allen', 'flash', 'flash@dc.com'),
-	('Allan Scott', 'greenlantern', 'greenlantern@dc.com');
+	('Peter Parker', 'lloyd', 'lloyd@jcf.com'),
+	('Matt Murdoch', 'devon', 'devon@jcf.com'),
+	('Bruce Banner', 'winston', 'winston@jcf.com'),
+	('Stephen Strange', 'junior', 'junior@jcf.com'),
+	('Reed Richards', 'delroy', 'delroy@jcf.com'),
+	('Bruce Wayne', 'leroy', 'leroy@outlook.com'),
+	('Clark Kent', 'fitzroy', 'fitzroy@outlook.com'),
+	('Barry Allen', 'teddy', 'teddy@outlook.com'),
+	('Allan Scott', 'mark', 'mark@outlook.com');

@@ -1,20 +1,19 @@
 {
   "keto": [{
-      "id": "marvel",
-      "subjects": ["<.*>@marvel.com"],
+      "id": "jcf",
+      "subjects": ["<.*>@jcf.com"],
       "resources": ["*"],
       "actions": ["view"],
       "effect": "allow"
     },
     {
-      "id": "dc",
-      "subjects": ["<.*>@dc.com"],
+      "id": "outlook",
+      "subjects": ["<.*>@outlook.com"],
       "resources": ["*"],
       "actions": ["view"],
       "effect": "deny"
     }
   ],
-
   "oathkeeper": [{
       "id": "superheroes",
       "upstream": {
