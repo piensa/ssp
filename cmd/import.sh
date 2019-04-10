@@ -10,6 +10,13 @@ function import_geonames(){ compose_run 'geonames' './bin/start'; }
 function import_transit(){ compose_run 'transit' './bin/start'; }
 function import_csv(){ compose_run 'csv-importer' './bin/start'; }
 
+function import_hydra(){
+  compose_run json_parser -M '.hydra' /config/ssp.json > hydra-client.json
+
+  compose_exec exec hydra hydra clients import --endpoint \
+  http://localhost:4445 /config/hydra-client.json
+}
+
 function import_keto(){
   # Parse keto config from main json.
   compose_run json_parser -M '.keto' /config/ssp.json > keto-policies.json
@@ -32,6 +39,7 @@ register 'import' 'polylines' '(re)import polylines data' import_polylines
 register 'import' 'geonames' '(re)import geonames data' import_geonames
 register 'import' 'transit' '(re)import transit data' import_transit
 register 'import' 'csv' '(re)import csv data' import_csv
+register 'import' 'hydra' 'import hydra client' import_hydra
 register 'import' 'keto' '(re)import keto policies from keto-policies.json file' import_keto
 register 'import' 'oathkeeper' '(re)import oathkeeper policies from ok-rules.json file' import_oathkeeper
 
