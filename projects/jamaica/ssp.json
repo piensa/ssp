@@ -34,24 +34,25 @@
     }
   ],
   "oathkeeper": [{
-      "id": "superheroes",
+      "id": "jcf",
       "upstream": {
         "url": "http://minio:9000"
       },
       "match": {
-        "url": "http://oathkeeper-proxy:4455/overall",
+        "url": "http://okproxy.puerti.co/overall",
         "methods": ["GET"]
       },
       "authenticators": [{
         "handler": "oauth2_introspection",
         "config": {
-          "required_scope": ["eat", "sleep"]
+          "required_scope": ["api"]
         }
       }],
       "authorizer": {
         "handler": "keto_engine_acp_ory",
         "config": {
           "required_action": "view",
+          "required_resource": "X",
           "flavor": "regex"
         }
       },
@@ -60,18 +61,18 @@
       }
     },
     {
-      "id": "superheroes-api",
+      "id": "jcf-api",
       "upstream": {
-        "url": ""
+        "url": "https://minio:9000"
       },
       "match": {
-        "url": "http://oathkeeper-api:4456/overall",
+        "url": "http://okapi.puerti.co/overall",
         "methods": ["GET"]
       },
       "authenticators": [{
         "handler": "oauth2_introspection",
         "config": {
-          "required_scope": ["eat", "sleep"]
+          "required_scope": ["api"]
         }
       }],
       "authorizer": {

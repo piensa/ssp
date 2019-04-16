@@ -100,7 +100,7 @@ services:
       - intranet
     restart: on-failure
     volumes:
-      - "./config/:/config/"
+      - "./:/config/"
 
   ok-api:
     container_name: ok-api
@@ -123,7 +123,7 @@ services:
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra_admin:4445/oauth2/introspect
     command: serve api
     volumes:
-      - "./config/:/config/"
+      - "./:/config/"
     labels:
       - "traefik.enable=true"
       - "traefik.backend=okapi"
@@ -145,7 +145,7 @@ services:
       - intranet
       - web
     volumes:
-      - "./config/:/config/"
+      - "./:/config/"
     environment:
       - LOG_LEVEL=debug
       - OATHKEEPER_API_URL=http://ok-api:4456
