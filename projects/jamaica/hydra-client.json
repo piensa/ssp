@@ -1,0 +1,18 @@
+{
+  "client_id": "jcf-client",
+  "description": "Test client to redirect to its given port.",
+  "client_secret": "jcf-secret",
+  "scope": "openid offline api",
+  "grant_types": [
+    "authorization_code",
+    "refresh_token",
+    "id_token"
+  ],
+  "response_types": [
+    "code",
+    "id_token"
+  ],
+  "redirect_uris": [
+    "http://0.0.0.0:5555/callback"
+  ]
+}

@@ -1,0 +1,23 @@
+version: '3'
+networks:
+  web:
+    external: true
+services:
+  logico:
+    networks:
+     - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=logico"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:logico.puerti.co"
+      - "traefik.port=3000"
+  hydra:
+    networks:
+     - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=hydra"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:hydra.puerti.co"
+      - "traefik.port=4444"
