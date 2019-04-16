@@ -66,7 +66,7 @@
         "url": "http://api:4000/v1"
       },
       "match": {
-        "url": "http://okproxy.puerti.co/<.*>",
+        "url": "http://okapi.puerti.co/<.*>",
         "methods": ["GET"]
       },
       "authenticators": [{
