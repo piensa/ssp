@@ -14,7 +14,8 @@
       "id_token"
     ],
     "redirect_uris": [
-      "http://0.0.0.0:5555/callback"
+      "http://localhost:5555/callback",
+      "http://127.0.0.1:5555/callback"
     ]
   },
   "keto": [{

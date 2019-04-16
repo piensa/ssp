@@ -13,7 +13,7 @@ function import_csv(){ compose_run 'csv-importer' './bin/start'; }
 function import_hydra(){
   compose_run json_parser -M '.hydra' /config/ssp.json > hydra-client.json
 
-  compose_exec exec hydra hydra clients import --endpoint \
+  compose_exec exec hydra_admin hydra clients import --endpoint \
   http://localhost:4445 /config/hydra-client.json
 }
 
