@@ -36,10 +36,10 @@
   "oathkeeper": [{
       "id": "jcf",
       "upstream": {
-        "url": "http://minio:9000"
+        "url": "http://api:4000/v1"
       },
       "match": {
-        "url": "http://okproxy.puerti.co/overall",
+        "url": "http://okproxy.puerti.co/<.*>",
         "methods": ["GET"]
       },
       "authenticators": [{
@@ -52,7 +52,7 @@
         "handler": "keto_engine_acp_ory",
         "config": {
           "required_action": "view",
-          "required_resource": "X",
+          "required_resource": "*",
           "flavor": "regex"
         }
       },
@@ -63,10 +63,10 @@
     {
       "id": "jcf-api",
       "upstream": {
-        "url": "https://minio:9000"
+        "url": "http://api:4000/v1"
       },
       "match": {
-        "url": "http://okapi.puerti.co/overall",
+        "url": "http://okproxy.puerti.co/<.*>",
         "methods": ["GET"]
       },
       "authenticators": [{
