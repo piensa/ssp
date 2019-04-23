@@ -259,6 +259,7 @@ services:
       - web
     restart: on-failure
     environment:
+      - CORS_ENABLED=true
       - LOG_LEVEL=debug
       - ISSUER_URL=http://ok-proxy:4455/
       - DATABASE_URL=postgres://${DB_USER}:${DB_PW}@postgresd:${DB_PORT}/${DB_NAME}?sslmode=disable
@@ -266,6 +267,7 @@ services:
       - CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangemedo
       - AUTHORIZER_KETO_URL=http://keto:4466
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra_admin:4445/oauth2/introspect
+      - CORS_ALLOWED_ORIGINS=*
     command: serve api
     volumes:
       - "./:/config/"
@@ -292,12 +294,14 @@ services:
     volumes:
       - "./:/config/"
     environment:
+      - CORS_ENABLED=true
       - LOG_LEVEL=debug
       - OATHKEEPER_API_URL=http://ok-api:4456
       - PORT=4455
       - CREDENTIALS_ISSUER_ID_TOKEN_HS256_SECRET=changemechangemechangemechangeme
       - AUTHORIZER_KETO_URL=http://keto:4466
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra_admin:4445/oauth2/introspect
+      - CORS_ALLOWED_ORIGINS=*
     command: serve proxy
     labels:
       - "traefik.enable=true"
@@ -318,17 +322,19 @@ services:
       - DB_NAME=$USER_DB
       - DB_HOST=postgresd
       - DB_PORT=5432
-      - HYDRA_BROWSER_URL=http://hydra_public:4444/oauth2/auth
-      - HYDRA_PUBLIC_URL=http://hydra_public:4444/oauth2/token
-      - HYDRA_ADMIN_URL=http://hydra_admin:4445
-      # - HYDRA_CLIENT_ID=piensa
-      # - HYDRA_CLIENT_SECRET=piensa
-      # - HYDRA_SCOPES=openid,offline,eat,sleep,rave,repeat
+      - HYDRA_PUBLIC_URL=https://api.puerti.co
+      - HYDRA_ADMIN_URL=https://admin.puerti.co
+      - PROXY_URL=https://okproxy.puerti.co/search
+      - HYDRA_CLIENT_ID=jcf-client
+      - HYDRA_CLIENT_SECRET=jcf-secret
+      - HYDRA_SCOPES=openid,offline,api
+      - CALLBACK_URL=https://okproxy.puerti.co/callback
       - PORT=3000
     links:
       - hydra_admin
       - hydra_public
       - postgresd
+      - ok-proxy 
     labels:
       - "traefik.enable=true"
       - "traefik.backend=logico"

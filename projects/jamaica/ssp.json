@@ -14,8 +14,7 @@
       "id_token"
     ],
     "redirect_uris": [
-      "http://localhost:5555/callback",
-      "http://127.0.0.1:5555/callback"
+      "https://okproxy.puerti.co/callback"
     ]
   },
   "keto": [{
@@ -39,7 +38,7 @@
         "url": "http://api:4000/v1"
       },
       "match": {
-        "url": "http://okproxy.puerti.co/<.*>",
+        "url": "http://okproxy.puerti.co/search<.*>",
         "methods": ["GET"]
       },
       "authenticators": [{
@@ -63,7 +62,7 @@
     {
       "id": "jcf-api",
       "upstream": {
-        "url": "http://api:4000/v1"
+        "url": "https://api:4000/v1"
       },
       "match": {
         "url": "http://okapi.puerti.co/<.*>",
@@ -86,6 +85,32 @@
       "credentials_issuer": {
         "handler": "noop"
       }
+    },
+    {
+      "id": "main",
+      "upstream": {
+        "url": "http://logico:3000"
+      },
+      "match": {
+        "url": "http://okproxy.puerti.co/",
+        "methods": [ "GET" ]    
+      },
+      "authenticators": [{ "handler": "noop" }],
+      "authorizer": { "handler": "allow" },
+      "credentials_issuer": { "handler": "noop" }
+    },
+    {
+      "id": "callback",
+      "upstream": {
+        "url": "http://logico:3000"
+      },
+      "match": {
+        "url": "http://okproxy.puerti.co/callback<.*>",
+        "methods": [ "GET" ]    
+      },
+      "authenticators": [{ "handler": "noop" }],
+      "authorizer": { "handler": "allow" },
+      "credentials_issuer": { "handler": "noop" }
     }
   ],
 
