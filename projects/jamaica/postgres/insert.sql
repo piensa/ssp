@@ -5,12 +5,12 @@ CREATE TABLE users (ID SERIAL PRIMARY KEY NOT NULL,
 	);
 
 INSERT INTO users(name, password, email) VALUES 
-	('Peter Parker', 'lloyd', 'lloyd@jcf.com'),
-	('Matt Murdoch', 'devon', 'devon@jcf.com'),
-	('Bruce Banner', 'winston', 'winston@jcf.com'),
-	('Stephen Strange', 'junior', 'junior@jcf.com'),
-	('Reed Richards', 'delroy', 'delroy@jcf.com'),
-	('Bruce Wayne', 'leroy', 'leroy@outlook.com'),
-	('Clark Kent', 'fitzroy', 'fitzroy@outlook.com'),
-	('Barry Allen', 'teddy', 'teddy@outlook.com'),
-	('Allan Scott', 'mark', 'mark@outlook.com');
+	('Peter Parker', 'lloyd', 'lloyd@jcf.gov.jm'),
+	('Matt Murdoch', 'devon', 'devon@jcf.gov.jm'),
+	('Bruce Banner', 'winston', 'winston@jcf.gov.jm'),
+	('Stephen Strange', 'junior', 'junior@jcf.gov.jm'),
+	('Reed Richards', 'delroy', 'delroy@jcf.gov.jm'),
+	('Bruce Wayne', 'leroy', 'leroy@piensa.co'),
+	('Clark Kent', 'fitzroy', 'fitzroy@piensa.co'),
+	('Barry Allen', 'teddy', 'teddy@piensa.co'),
+	('Allan Scott', 'mark', 'mark@piensa.co');
