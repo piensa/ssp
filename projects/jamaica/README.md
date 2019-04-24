@@ -26,6 +26,10 @@ ssp prepare all
 ssp import all
 ssp compose up
 ssp test run
+ssp import hydra
+ssp import keto
+ssp import oathkeeper
+ssp postgres migrate
 ```
 
 # Make an Example Query
